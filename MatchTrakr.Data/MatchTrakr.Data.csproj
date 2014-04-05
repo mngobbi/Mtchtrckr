@@ -48,7 +48,20 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Entities\Invitacion.cs" />
+    <Compile Include="Entities\UsuarioEstado.cs" />
+    <Compile Include="Entities\UsuarioGrupo.cs" />
+    <Compile Include="Entities\Reserva.cs" />
     <Compile Include="Entities\BookmarkedPlace.cs" />
+    <Compile Include="Entities\Grupo.cs" />
+    <Compile Include="Entities\Partido.cs" />
+    <Compile Include="Entities\Usuario.cs" />
+    <Compile Include="Entities\Cancha.cs" />
+    <Compile Include="Entities\Equipo.cs" />
+    <Compile Include="Entities\Complejo.cs" />
+    <Compile Include="MatchTrakrContextMigrationConfiguration.cs" />
+    <Compile Include="MatchTrakrRepository.cs" />
+    <Compile Include="MatchTrakrContext.cs" />
     <Compile Include="FourSquareContext.cs" />
     <Compile Include="FourSquareRepository.cs" />
     <Compile Include="Mappers\BookmarkedPlaceMapper.cs" />
