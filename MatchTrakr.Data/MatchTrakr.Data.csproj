@@ -59,13 +59,14 @@
     <Compile Include="Entities\Cancha.cs" />
     <Compile Include="Entities\Equipo.cs" />
     <Compile Include="Entities\Complejo.cs" />
-    <Compile Include="MatchTrakrContextMigrationConfiguration.cs" />
+    <Compile Include="Entities\UsuarioPartido.cs" />
     <Compile Include="MatchTrakrRepository.cs" />
     <Compile Include="MatchTrakrContext.cs" />
     <Compile Include="FourSquareContext.cs" />
     <Compile Include="FourSquareRepository.cs" />
     <Compile Include="Mappers\BookmarkedPlaceMapper.cs" />
     <Compile Include="FourSquareContextMigrationConfiguration.cs" />
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

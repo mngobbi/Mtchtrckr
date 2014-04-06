@@ -3,14 +3,21 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.ComponentModel.DataAnnotations;
 
 namespace MatchTrakr.Data.Entities
 {
-    class Equipo
+    public class Equipo
     {
-        public int Id { get; set; }
+        public Equipo()
+        {
+            this.Partidos = new HashSet<Partido>();
+        }
 
-        public virtual List<Usuario> Jugadores { get; set; }
-        public virtual List<Partido> Partidos { get; set; }
+        public int Id { get; set; }
+        public string Nombre { get; set; }
+
+        //public virtual List<Usuario> Jugadores { get; set; }
+        public virtual ICollection<Partido> Partidos { get; set; }
     }
 }

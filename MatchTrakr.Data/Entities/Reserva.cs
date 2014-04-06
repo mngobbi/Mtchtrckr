@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.ComponentModel.DataAnnotations;
 
 namespace MatchTrakr.Data.Entities
 {
-    class Reserva
+    public class Reserva
     {
         public int Id { get; set; }
         public int CanchaId { get; set; }
