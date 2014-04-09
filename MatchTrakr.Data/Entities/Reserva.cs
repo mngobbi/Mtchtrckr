@@ -11,7 +11,7 @@ namespace MatchTrakr.Data.Entities
     {
         public int Id { get; set; }
         public int CanchaId { get; set; }
-        public int PartidoId { get; set; }
+        public int? PartidoId { get; set; }
         public DateTime FechaHora { get; set; }
 
         public virtual Cancha Cancha { get; set; }

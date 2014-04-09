@@ -191,6 +191,8 @@
     <Content Include="content\fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="content\fonts\glyphicons-halflings-regular.woff" />
     <Content Include="index.html" />
+    <Content Include="ng-app\ng-app.js" />
+    <Content Include="ng-app\services\canchasDataService.js" />
     <Content Include="scripts\angular-animate.js" />
     <Content Include="scripts\angular-animate.min.js" />
     <Content Include="scripts\angular-resource.js" />
@@ -199,6 +201,7 @@
     <Content Include="scripts\angular-route.min.js" />
     <Content Include="scripts\angular.js" />
     <Content Include="scripts\angular.min.js" />
+    <Content Include="ng-app\controllers\testController.js" />
     <None Include="scripts\jquery-2.1.0.intellisense.js" />
     <Content Include="scripts\jquery-2.1.0.js" />
     <Content Include="scripts\jquery-2.1.0.min.js" />
@@ -224,6 +227,7 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="content\images\" />
+    <Folder Include="ng-app\views\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />

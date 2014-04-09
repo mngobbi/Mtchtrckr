@@ -14,8 +14,7 @@ namespace MatchTrakr.Data
         public MatchTrakrContext() :
             base("DefaultConnection")
         {
-            Configuration.LazyLoadingEnabled = true;
-
+            //Database.SetInitializer(new CreateDatabaseIfNotExists<MatchTrakrContext>());
             Database.SetInitializer(new MigrateDatabaseToLatestVersion<MatchTrakrContext,MatchTrakr.Data.Migrations.Configuration>());
         }
 
@@ -83,7 +82,8 @@ namespace MatchTrakr.Data
                 .WithRequired(e => e.Usuario).HasForeignKey(e => e.UsuarioId);
 
             modelBuilder.Entity<Partido>()
-                .HasOptional(e => e.Reserva).WithOptionalPrincipal(e => e.Partido).Map(e => e.MapKey("PartidoId"));
+                .HasRequired(e => e.Reserva)
+                .WithOptional(e => e.Partido);
 
 
             base.OnModelCreating(modelBuilder);
