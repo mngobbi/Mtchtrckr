@@ -48,11 +48,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Entities\BookmarkedPlace.cs" />
     <Compile Include="Entities\Invitacion.cs" />
     <Compile Include="Entities\UsuarioEstado.cs" />
     <Compile Include="Entities\UsuarioGrupo.cs" />
     <Compile Include="Entities\Reserva.cs" />
-    <Compile Include="Entities\BookmarkedPlace.cs" />
     <Compile Include="Entities\Grupo.cs" />
     <Compile Include="Entities\Partido.cs" />
     <Compile Include="Entities\Usuario.cs" />
@@ -60,12 +60,16 @@
     <Compile Include="Entities\Equipo.cs" />
     <Compile Include="Entities\Complejo.cs" />
     <Compile Include="Entities\UsuarioPartido.cs" />
-    <Compile Include="MatchTrakrRepository.cs" />
-    <Compile Include="MatchTrakrContext.cs" />
     <Compile Include="FourSquareContext.cs" />
+    <Compile Include="FourSquareContextMigrationConfiguration.cs" />
     <Compile Include="FourSquareRepository.cs" />
     <Compile Include="Mappers\BookmarkedPlaceMapper.cs" />
-    <Compile Include="FourSquareContextMigrationConfiguration.cs" />
+    <Compile Include="MatchTrakrRepository.cs" />
+    <Compile Include="MatchTrakrContext.cs" />
+    <Compile Include="Migrations\201404100320215_initModel.cs" />
+    <Compile Include="Migrations\201404100320215_initModel.Designer.cs">
+      <DependentUpon>201404100320215_initModel.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -73,7 +77,11 @@
     <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201404100320215_initModel.resx">
+      <DependentUpon>201404100320215_initModel.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

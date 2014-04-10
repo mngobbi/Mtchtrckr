@@ -8,6 +8,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace MatchTrakr.Data.Entities
 {
+    [Table("UsuariosPartidos")]
     public class UsuarioPartido
     {
         [Key]

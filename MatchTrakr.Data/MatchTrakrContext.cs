@@ -1,5 +1,4 @@
 ﻿using MatchTrakr.Data.Entities;
-using MatchTrakr.Data.Mappers;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -20,7 +19,7 @@ namespace MatchTrakr.Data
 
         public virtual DbSet<Cancha> Canchas { get; set; }
         public virtual DbSet<Complejo> Complejos { get; set; }
-        public virtual DbSet<Equipo> Equipos { get; set; }
+        //public virtual DbSet<Equipo> Equipos { get; set; }
         public virtual DbSet<Grupo> Grupos { get; set; }
         public virtual DbSet<Invitacion> Invitaciones { get; set; }
         public virtual DbSet<Partido> Partidos { get; set; }
@@ -41,13 +40,13 @@ namespace MatchTrakr.Data
                 .HasMany(e => e.Canchas)
                 .WithRequired(e => e.Complejo).HasForeignKey(e => e.ComplejoId);
 
-            modelBuilder.Entity<Equipo>()
-                .HasMany(e => e.Partidos)
-                .WithOptional(p => p.EquipoA).HasForeignKey(e => e.EquipoAId);
+            //modelBuilder.Entity<Equipo>()
+            //    .HasMany(e => e.Partidos)
+            //    .WithOptional(p => p.EquipoA).HasForeignKey(e => e.EquipoAId);
 
-            modelBuilder.Entity<Equipo>()
-                .HasMany(e => e.Partidos)
-                .WithOptional(p => p.EquipoB).HasForeignKey(e => e.EquipoBId);
+            //modelBuilder.Entity<Equipo>()
+            //    .HasMany(e => e.Partidos)
+            //    .WithOptional(p => p.EquipoB).HasForeignKey(e => e.EquipoBId);
 
             modelBuilder.Entity<Grupo>()
                 .HasMany(e => e.Partidos)
@@ -61,9 +60,9 @@ namespace MatchTrakr.Data
                 .HasMany(e => e.UsuariosInfo)
                 .WithRequired(e => e.Grupo).HasForeignKey(e => e.GrupoId);
 
-            modelBuilder.Entity<Grupo>()
-                .HasMany(e => e.Invitaciones)
-                .WithRequired(e => e.Grupo).HasForeignKey(e => e.GrupoId);
+            //modelBuilder.Entity<Grupo>()
+            //    .HasMany(e => e.Invitaciones)
+            //    .WithRequired(e => e.Grupo).HasForeignKey(e => e.GrupoId);
 
             modelBuilder.Entity<Partido>()
                 .HasMany(e => e.UsuariosInfo)
@@ -80,6 +79,13 @@ namespace MatchTrakr.Data
             modelBuilder.Entity<Usuario>()
                 .HasMany(e => e.Invitaciones)
                 .WithRequired(e => e.Usuario).HasForeignKey(e => e.UsuarioId);
+
+            modelBuilder.Entity<Grupo>()
+                .HasMany(e=> e.Invitaciones).WithRequired(e=> e.Grupo).HasForeignKey(e => e.GrupoId)
+                .WillCascadeOnDelete(false);
+
+            modelBuilder.Entity<Partido>()
+                .HasMany(e => e.Invitaciones).WithRequired(e => e.Partido).HasForeignKey(e => e.PartidoId);
 
             modelBuilder.Entity<Partido>()
                 .HasRequired(e => e.Reserva)

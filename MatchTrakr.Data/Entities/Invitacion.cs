@@ -4,9 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace MatchTrakr.Data.Entities
 {
+    [Table("Invitaciones")]
     public class Invitacion
     {
         public int Id { get; set; }
