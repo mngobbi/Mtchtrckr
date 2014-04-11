@@ -26,7 +26,6 @@ namespace MatchTrakr.Data.Entities
         }
 
         //public int? FacebookId { get; set; }
-        public int? Telefono { get; set; }
         public UsuarioEstado? EstadoId { get; set; }
         public string EstadoDetalle { get; set; }
         public bool? Activo { get; set; }

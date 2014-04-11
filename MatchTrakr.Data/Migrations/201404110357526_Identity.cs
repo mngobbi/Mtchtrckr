@@ -3,23 +3,23 @@ namespace MatchTrakr.Data.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class Indentity : DbMigration
+    public partial class Identity : DbMigration
     {
         public override void Up()
         {
-            RenameTable(name: "dbo.Usuarios", newName: "AspNetUsers");
-            DropForeignKey("dbo.AspNetUserClaims", "UserId", "dbo.AspNetUsers");
-            DropForeignKey("dbo.UsuariosGrupos", "UsuarioId", "dbo.AspNetUsers");
-            DropForeignKey("dbo.Invitaciones", "UsuarioId", "dbo.AspNetUsers");
-            DropForeignKey("dbo.AspNetUserLogins", "UserId", "dbo.AspNetUsers");
-            DropForeignKey("dbo.UsuariosPartidos", "UsuarioId", "dbo.AspNetUsers");
-            DropForeignKey("dbo.AspNetUserRoles", "UserId", "dbo.AspNetUsers");
+            DropForeignKey("dbo.AspNetUserClaims", "UserId", "dbo.Usuarios");
+            DropForeignKey("dbo.UsuariosGrupos", "UsuarioId", "dbo.Usuarios");
+            DropForeignKey("dbo.Invitaciones", "UsuarioId", "dbo.Usuarios");
+            DropForeignKey("dbo.AspNetUserLogins", "UserId", "dbo.Usuarios");
+            DropForeignKey("dbo.UsuariosPartidos", "UsuarioId", "dbo.Usuarios");
+            DropForeignKey("dbo.AspNetUserRoles", "UserId", "dbo.Usuarios");
             DropIndex("dbo.Invitaciones", new[] { "UsuarioId" });
             DropIndex("dbo.UsuariosGrupos", new[] { "UsuarioId" });
             DropIndex("dbo.UsuariosPartidos", new[] { "UsuarioId" });
             DropPrimaryKey("dbo.Usuarios");
             DropPrimaryKey("dbo.UsuariosGrupos");
             DropPrimaryKey("dbo.UsuariosPartidos");
+            RenameTable(name: "dbo.Usuarios", newName: "AspNetUsers");
             CreateTable(
                 "dbo.AspNetUserClaims",
                 c => new
@@ -78,7 +78,8 @@ namespace MatchTrakr.Data.Migrations
             AddColumn("dbo.AspNetUsers", "LockoutEnabled", c => c.Boolean(nullable: false));
             AddColumn("dbo.AspNetUsers", "AccessFailedCount", c => c.Int(nullable: false));
             AlterColumn("dbo.Invitaciones", "UsuarioId", c => c.String(nullable: false, maxLength: 128));
-            AlterColumn("dbo.AspNetUsers", "Id", c => c.String(nullable: false, maxLength: 128));
+            DropColumn("dbo.AspNetUsers", "Id");
+            AddColumn("dbo.AspNetUsers", "Id", c => c.String(nullable: false, maxLength: 128));
             AlterColumn("dbo.AspNetUsers", "UserName", c => c.String(nullable: false, maxLength: 256));
             AlterColumn("dbo.AspNetUsers", "Email", c => c.String(maxLength: 256));
             AlterColumn("dbo.UsuariosGrupos", "UsuarioId", c => c.String(nullable: false, maxLength: 128));
@@ -94,10 +95,12 @@ namespace MatchTrakr.Data.Migrations
             AddForeignKey("dbo.Invitaciones", "UsuarioId", "dbo.AspNetUsers", "Id", cascadeDelete: true);
             AddForeignKey("dbo.UsuariosPartidos", "UsuarioId", "dbo.AspNetUsers", "Id", cascadeDelete: true);
             DropColumn("dbo.AspNetUsers", "FacebookId");
+            DropColumn("dbo.AspNetUsers", "Telefono");
         }
         
         public override void Down()
         {
+            AddColumn("dbo.AspNetUsers", "Telefono", c => c.Int());
             AddColumn("dbo.AspNetUsers", "FacebookId", c => c.Int());
             DropForeignKey("dbo.UsuariosPartidos", "UsuarioId", "dbo.AspNetUsers");
             DropForeignKey("dbo.Invitaciones", "UsuarioId", "dbo.AspNetUsers");

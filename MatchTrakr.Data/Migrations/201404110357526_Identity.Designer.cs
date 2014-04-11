@@ -7,13 +7,13 @@ namespace MatchTrakr.Data.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.0-30225")]
-    public sealed partial class Indentity : IMigrationMetadata
+    public sealed partial class Identity : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(Indentity));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(Identity));
         
         string IMigrationMetadata.Id
         {
-            get { return "201404110015412_Indentity"; }
+            get { return "201404110357526_Identity"; }
         }
         
         string IMigrationMetadata.Source

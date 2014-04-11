@@ -103,9 +103,9 @@
     <Compile Include="Migrations\201404100320215_initModel.Designer.cs">
       <DependentUpon>201404100320215_initModel.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201404110015412_Indentity.cs" />
-    <Compile Include="Migrations\201404110015412_Indentity.Designer.cs">
-      <DependentUpon>201404110015412_Indentity.cs</DependentUpon>
+    <Compile Include="Migrations\201404110357526_Identity.cs" />
+    <Compile Include="Migrations\201404110357526_Identity.Designer.cs">
+      <DependentUpon>201404110357526_Identity.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -118,8 +118,8 @@
     <EmbeddedResource Include="Migrations\201404100320215_initModel.resx">
       <DependentUpon>201404100320215_initModel.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201404110015412_Indentity.resx">
-      <DependentUpon>201404110015412_Indentity.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201404110357526_Identity.resx">
+      <DependentUpon>201404110357526_Identity.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
