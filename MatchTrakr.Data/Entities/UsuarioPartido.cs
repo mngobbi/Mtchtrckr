@@ -13,7 +13,7 @@ namespace MatchTrakr.Data.Entities
     {
         [Key]
         [Column(Order=0)]
-        public int UsuarioId { get; set; }
+        public string UsuarioId { get; set; }
 
         [Key]
         [Column(Order = 1)]

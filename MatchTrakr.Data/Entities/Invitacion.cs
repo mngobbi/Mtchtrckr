@@ -12,7 +12,7 @@ namespace MatchTrakr.Data.Entities
     public class Invitacion
     {
         public int Id { get; set; }
-        public int UsuarioId { get; set; }
+        public string UsuarioId { get; set; }
         public int GrupoId { get; set; }
         public int PartidoId { get; set; }
         public bool? Asistencia { get; set; }

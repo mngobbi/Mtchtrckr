@@ -1,14 +1,10 @@
 ﻿using MatchTrakr.Data.Entities;
-using System;
-using System.Collections.Generic;
 using System.Data.Entity;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace MatchTrakr.Data
 {
-    public class MatchTrakrContext : DbContext
+    public class MatchTrakrContext : IdentityDbContext<Usuario>
     {
         public MatchTrakrContext() :
             base("DefaultConnection")
@@ -24,7 +20,6 @@ namespace MatchTrakr.Data
         public virtual DbSet<Invitacion> Invitaciones { get; set; }
         public virtual DbSet<Partido> Partidos { get; set; }
         public virtual DbSet<Reserva> Reservas { get; set; }
-        public virtual DbSet<Usuario> Usuarios { get; set; }
         public virtual DbSet<UsuarioGrupo> UsuariosGrupos { get; set; }
         public virtual DbSet<UsuarioPartido> UsuariosPartidos { get; set; }
 

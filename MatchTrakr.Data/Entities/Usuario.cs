@@ -1,16 +1,23 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
-using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Security.Claims;
+using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace MatchTrakr.Data.Entities
 {
-    [Table("Usuarios")]
-    public class Usuario
+    public class Usuario : IdentityUser
     {
+        public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<Usuario> manager, string authenticationType)
+        {
+            // Note the authenticationType must match the one defined in CookieAuthenticationOptions.AuthenticationType
+            var userIdentity = await manager.CreateIdentityAsync(this, authenticationType);
+            // Add custom user claims here
+            return userIdentity;
+        }
+
         public Usuario()
         {
             this.GruposInfo = new HashSet<UsuarioGrupo>();
@@ -18,10 +25,7 @@ namespace MatchTrakr.Data.Entities
             this.Invitaciones = new HashSet<Invitacion>();
         }
 
-        public int Id { get; set; }
-        public string UserName { get; set; }
-        public string Email { get; set; }
-        public int? FacebookId { get; set; }
+        //public int? FacebookId { get; set; }
         public int? Telefono { get; set; }
         public UsuarioEstado? EstadoId { get; set; }
         public string EstadoDetalle { get; set; }
