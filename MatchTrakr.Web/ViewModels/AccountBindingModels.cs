@@ -2,7 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 using Newtonsoft.Json;
 
-namespace IdentityTest.Models
+namespace MatchTrakr.Web.ViewModels
 {
     // Models used as parameters to AccountController actions.
 

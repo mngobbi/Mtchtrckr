@@ -89,5 +89,10 @@ namespace MatchTrakr.Data
 
             base.OnModelCreating(modelBuilder);
         }
+
+        public static MatchTrakrContext Create()
+        {
+            return new MatchTrakrContext();
+        }
     }
 }

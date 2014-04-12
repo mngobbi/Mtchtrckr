@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace IdentityTest.Models
+namespace MatchTrakr.Web.ViewModels
 {
     // Models returned by AccountController actions.
 
