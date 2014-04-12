@@ -17,8 +17,6 @@ using MatchTrakr.Data.Entities;
 using MatchTrakr.Web.Providers;
 using MatchTrakr.Web.Results;
 using MatchTrakr.Web.ViewModels;
-//using Microsoft.Owin.Host;
-//using Microsoft.Owin.Host.SystemWeb;
 
 namespace MatchTrakr.Web.Controllers
 {

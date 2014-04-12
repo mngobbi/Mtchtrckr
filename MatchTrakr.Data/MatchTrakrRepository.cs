@@ -8,61 +8,45 @@ using System.Threading.Tasks;
 namespace MatchTrakr.Data
 {
 
-    //public interface IFourSquareRepository
-    //{
-    //    IQueryable<BookmarkedPlace> GetBookmarkedPlaces(string userName);
+    public interface IMatchTrakrRepository
+    {
+        IQueryable<Complejo> GetComplejos();
 
-    //    bool UserNameExists(string userName);
 
-    //    int SavePlace(BookmarkedPlace bookmarkedPlace);
-    //}
+        int SaveComplejo(Complejo complejo);
+    }
 
-    //public class FourSquareRepository : IFourSquareRepository
-    //{
-    //    private FourSquareContext _ctx;
-    //    public FourSquareRepository()
-    //    {
-    //        _ctx = new FourSquareContext();
-    //    }
+    public class MatchTrakrRepository : IMatchTrakrRepository
+    {
+        private MatchTrakrContext _ctx;
+        public MatchTrakrRepository()
+        {
+            _ctx = new MatchTrakrContext();
+        }
 
-    //    public IQueryable<BookmarkedPlace> GetBookmarkedPlaces(string userName)
-    //    {
-    //        return _ctx.BookmarkedPlaces
-    //               .Where(b => b.UserName == userName)
-    //               .AsQueryable();
-    //    }
+        public IQueryable<Complejo> GetComplejos()
+        {
+            return _ctx.Complejos.Where( e => e.Canchas.Count > 1).AsQueryable();
+        }
 
-    //    public bool UserNameExists(string userName)
-    //    {
-    //        return _ctx.BookmarkedPlaces.Any(b => b.UserName == userName); 
-    //    }
+        public int SaveComplejo(Complejo complejo)
+        {
+            try
+            {
+                complejo.FechaAlta = DateTime.Now;
+                _ctx.Complejos.Add(complejo);
 
-    //    public int SavePlace(BookmarkedPlace bookmarkedPlace)
-    //    {
-    //        try
-    //        {
-    //            if (_ctx.BookmarkedPlaces.Any(b => b.UserName == bookmarkedPlace.UserName 
-    //                                            && b.VenueID == bookmarkedPlace.VenueID))
-    //            {
-    //                return -1;
-    //            }
+                return _ctx.SaveChanges();
 
-    //            bookmarkedPlace.TS = DateTime.Now;
-    //            _ctx.BookmarkedPlaces.Add(bookmarkedPlace);
+            }
+            catch (Exception)
+            {
+                return 0;
+            }
+        }
 
-    //            return _ctx.SaveChanges();
 
-    //        }
-    //        catch (Exception)
-    //        {
-
-    //            //Log exception here
-    //            return 0;
-    //        }
-    //    }
-
-       
-    //}
+    }
 
   
 }

@@ -9,13 +9,13 @@ namespace MatchTrakr.Web.Controllers
 {
     public class BaseApiController : ApiController
     {
-        private IFourSquareRepository _repo;
+        private IMatchTrakrRepository _repo;
 
-        protected IFourSquareRepository TheRepository
+        protected IMatchTrakrRepository TheRepository
         {
             get
             {
-                _repo = new FourSquareRepository();
+                _repo = new MatchTrakrRepository();
                 return _repo;
             }
         }
