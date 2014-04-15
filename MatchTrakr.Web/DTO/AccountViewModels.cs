@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace MatchTrakr.Web.ViewModels
+namespace MatchTrakr.Web.DTO
 {
     // Models returned by AccountController actions.
 

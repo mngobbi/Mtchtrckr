@@ -16,7 +16,7 @@ using Microsoft.Owin.Security.OAuth;
 using MatchTrakr.Data.Entities;
 using MatchTrakr.Web.Providers;
 using MatchTrakr.Web.Results;
-using MatchTrakr.Web.ViewModels;
+using MatchTrakr.Web.DTO;
 
 namespace MatchTrakr.Web.Controllers
 {

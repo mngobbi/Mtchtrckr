@@ -160,20 +160,28 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\BaseApiController.cs" />
     <Compile Include="Controllers\ComplejosController.cs" />
+    <Compile Include="DTO\EntitiesDTO.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Providers\ApplicationOAuthProvider.cs" />
     <Compile Include="Results\ChallengeResult.cs" />
-    <Compile Include="ViewModels\AccountBindingModels.cs" />
-    <Compile Include="ViewModels\AccountViewModels.cs" />
+    <Compile Include="Startup.cs" />
+    <Compile Include="DTO\AccountBindingModels.cs" />
+    <Compile Include="DTO\AccountViewModels.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="app\app.js" />
+    <Content Include="app\application.js" />
     <Content Include="app\controllers\aboutController.js" />
+    <Content Include="app\controllers\forgotpassword.js" />
     <Content Include="app\controllers\myPlacesController.js" />
     <Content Include="app\controllers\navigationController.js" />
+    <Content Include="app\controllers\page.js" />
+    <Content Include="app\controllers\profile.js" />
+    <Content Include="app\controllers\signin.js" />
+    <Content Include="app\controllers\signup.js" />
     <Content Include="app\controllers\userContextController.js" />
     <Content Include="app\controllers\placesExplorerController.js" />
     <Content Include="app\controllers\placesPhotosController.js" />

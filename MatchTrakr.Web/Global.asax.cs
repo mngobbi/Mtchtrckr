@@ -14,7 +14,7 @@ namespace MatchTrakr.Web
     {
         protected void Application_Start()
         {
-            WebApiConfig.Register(GlobalConfiguration.Configuration);
+            GlobalConfiguration.Configure(WebApiConfig.Register);
         }
     }
 }
