@@ -4,6 +4,8 @@ namespace MatchTrakr.Data.Migrations
     using MatchTrakr.Data.Entities;
     using System.Data.Entity;
     using System.Data.Entity.Migrations;
+    using Microsoft.AspNet.Identity;
+    using Microsoft.AspNet.Identity.EntityFramework;
     using System.Linq;
     using System.Collections.Generic;
 
@@ -14,8 +16,27 @@ namespace MatchTrakr.Data.Migrations
             AutomaticMigrationsEnabled = false;
         }
 
-        protected override void Seed(MatchTrakr.Data.MatchTrakrContext context)
+        private bool AddUser(MatchTrakrContext context)
         {
+            IdentityResult identityResult;
+            UserManager<Usuario> userManager = new UserManager<Usuario>(new UserStore<Usuario>(context));
+            var user = new Usuario()
+            {
+                UserName = "admin",
+                FechaAlta = DateTime.Now
+            };
+            if (userManager.FindByName(user.UserName) != null)
+            {
+                return true;
+            }
+            identityResult = userManager.Create(user, "password");
+            return identityResult.Succeeded;
+        }
+
+        protected override void Seed(MatchTrakrContext context)
+        {
+            AddUser(context);
+
             List<Complejo> complejos = new List<Complejo>();
             List<Cancha> canchas;
 
