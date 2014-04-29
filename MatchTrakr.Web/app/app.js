@@ -1,31 +1,40 @@
-﻿
-/*######################*********************#############################
-  
- Created by: Taiseer Joudeh
-  http://twitter.com/tjoudeh
-  http://bitoftech.net
-
- ######################*********************##############################*/
-
-var app = angular.module('FoursquareApp', ['ngRoute', 'ngResource', 'ui.bootstrap', 'toaster', 'chieffancypants.loadingBar']);
+﻿var app = angular.module('MatchTrakrApp', ['ngRoute', 'ngResource', 'ui.bootstrap', 'toaster', 'chieffancypants.loadingBar']);
 
 app.config(function ($routeProvider) {
-
-    $routeProvider.when("/explore", {
-        controller: "placesExplorerController",
-        templateUrl: "/app/views/placesresults.html"
+    $routeProvider.when('/', {
+        templateUrl: 'home.html',
+        controller: 'PageController'
     });
 
-    $routeProvider.when("/places", {
-        controller: "myPlacesController",
-        templateUrl: "/app/views/myplaces.html"
+    $routeProvider.when('/profile', {
+        templateUrl: 'profile.html',
+        controller: 'ProfileController',
+        secured: true
     });
 
-    $routeProvider.when("/about", {
-        controller: "aboutController",
-        templateUrl: "/app/views/about.html"
+    $routeProvider.when('/password', {
+        templateUrl: 'password.html',
+        controller: 'PasswordController'
     });
 
-    $routeProvider.otherwise({ redirectTo: "/explore" });
+    $routeProvider.when('/login', {
+        templateUrl: 'login.html',
+        controller: 'LogInController'
+    });
+
+    $routeProvider.when('/signup', {
+        templateUrl: 'signup.html',
+        controller: 'SignUpController'
+    });
+
+    $routeProvider.when('/404', {
+        templateUrl: 'notfound.html',
+        controller: 'PageController'
+    });
+
+    $routeProvider.otherwise({
+        redirectTo: '/404'
+    });
+
 
 });

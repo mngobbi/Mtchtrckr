@@ -14,6 +14,7 @@ using MatchTrakr.Web.DTO;
 
 namespace MatchTrakr.Web.Controllers
 {
+    [Authorize]
     public class ComplejosController : ApiController
     {
         private MatchTrakrContext db = new MatchTrakrContext();

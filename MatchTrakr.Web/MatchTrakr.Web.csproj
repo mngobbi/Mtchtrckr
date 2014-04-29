@@ -123,10 +123,6 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Microsoft.AspNet.WebApi.WebHost.5.1.2\lib\net45\System.Web.Http.WebHost.dll</HintPath>
     </Reference>
-    <Reference Include="System.Web.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Microsoft.AspNet.Razor.3.1.2\lib\net45\System.Web.Razor.dll</HintPath>
-    </Reference>
     <Reference Include="System.Web.WebPages, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Microsoft.AspNet.WebPages.3.1.2\lib\net45\System.Web.WebPages.dll</HintPath>
@@ -170,28 +166,19 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="app\app.js" />
-    <Content Include="app\application.js" />
-    <Content Include="app\controllers\aboutController.js" />
-    <Content Include="app\controllers\forgotpassword.js" />
-    <Content Include="app\controllers\myPlacesController.js" />
-    <Content Include="app\controllers\navigationController.js" />
-    <Content Include="app\controllers\page.js" />
-    <Content Include="app\controllers\profile.js" />
-    <Content Include="app\controllers\signin.js" />
-    <Content Include="app\controllers\signup.js" />
-    <Content Include="app\controllers\userContextController.js" />
-    <Content Include="app\controllers\placesExplorerController.js" />
-    <Content Include="app\controllers\placesPhotosController.js" />
-    <Content Include="app\directives\fsUnique.js" />
-    <Content Include="app\filters\placeNameCategoryFilter.js" />
-    <Content Include="app\services\placesDataService.js" />
-    <Content Include="app\services\placesExplorerService.js" />
-    <Content Include="app\services\placesPhotosService.js" />
-    <Content Include="app\views\about.html" />
-    <Content Include="app\views\myplaces.html" />
-    <Content Include="app\views\placesphotos.html" />
-    <Content Include="app\views\placesresults.html" />
-    <Content Include="app\views\userprofile.html" />
+    <Content Include="app\controllers\PasswordController.js" />
+    <Content Include="app\controllers\HeaderController.js" />
+    <Content Include="app\controllers\PageController.js" />
+    <Content Include="app\controllers\ProfileController.js" />
+    <Content Include="app\controllers\LogInController.js" />
+    <Content Include="app\controllers\SignUpController.js" />
+    <Content Include="app\services\UserService.js" />
+    <Content Include="app\views\notfound.html" />
+    <Content Include="app\views\home.html" />
+    <Content Include="app\views\login.html" />
+    <Content Include="app\views\password.html" />
+    <Content Include="app\views\profile.html" />
+    <Content Include="app\views\signup.html" />
     <Content Include="content\css\amelia-bootstrap-theme.min.css" />
     <Content Include="content\css\bootstrap.css" />
     <Content Include="content\css\bootstrap.min.css" />
@@ -267,8 +254,6 @@
     <Content Include="content\fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="content\fonts\glyphicons-halflings-regular.woff" />
     <Content Include="index.html" />
-    <Content Include="ng-app\ng-app.js" />
-    <Content Include="ng-app\services\canchasDataService.js" />
     <Content Include="scripts\angular-animate.js" />
     <Content Include="scripts\angular-animate.min.js" />
     <Content Include="scripts\angular-resource.js" />
@@ -277,7 +262,6 @@
     <Content Include="scripts\angular-route.min.js" />
     <Content Include="scripts\angular.js" />
     <Content Include="scripts\angular.min.js" />
-    <Content Include="ng-app\controllers\testController.js" />
     <None Include="scripts\jquery-2.1.0.intellisense.js" />
     <Content Include="scripts\jquery-2.1.0.js" />
     <Content Include="scripts\jquery-2.1.0.min.js" />
@@ -285,7 +269,6 @@
     <Content Include="scripts\jquery-ui-1.10.4.min.js" />
     <Content Include="scripts\loading-bar.js" />
     <Content Include="scripts\loading-bar.min.js" />
-    <Content Include="scripts\modernizr-2.7.2.js" />
     <Content Include="scripts\toaster.js" />
     <Content Include="scripts\ui-bootstrap-0.10.0.js" />
     <Content Include="scripts\ui-bootstrap-0.10.0.min.js" />
@@ -301,9 +284,10 @@
     <Content Include="scripts\jquery-2.1.0.min.map" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="app\directives\" />
+    <Folder Include="app\filters\" />
     <Folder Include="App_Data\" />
     <Folder Include="content\images\" />
-    <Folder Include="ng-app\views\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
