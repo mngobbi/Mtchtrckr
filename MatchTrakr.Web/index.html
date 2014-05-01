@@ -5,8 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
      <title>MatchTrakr</title>
     <link href="content/css/bootstrap.min.css" rel="stylesheet" />
-    <link href="content/css/amelia-bootstrap-theme.min.css" rel="stylesheet" />
-    <link href="Content/css/toaster.css" rel="stylesheet" />
+    <link href="content/css/toastr.min.css" rel="stylesheet" />
     <link href="content/css/loading-bar.min.css" rel="stylesheet" />
     <link href="content/css/site.css" rel="stylesheet" />
     <link rel="shortcut icon" href="favicon.ico" />
@@ -29,9 +28,9 @@
                 <div class="navbar-collapse collapse" data-collapse="!navbarExpanded">
                     <ul class="nav navbar-nav navbar-right">
                         <li ng-show="user.isAutenticated"><a href="#/profile">Profile</a></li>
-                        <li ng-hide="user.isAutenticated"><a href="#/login">LogIn</a></li>
-                        <li ng-hide="user.isAutenticated"><a href="#/signin">SignIn</a></li>
-                        <li ng-show="user.isAutenticated"><a href="#/logout">LogOut</a></li>
+                        <li ng-hide="user.isAutenticated"><a href="#/login">Log In</a></li>
+                        <li ng-hide="user.isAutenticated"><a href="#/signin">Sign In</a></li>
+                        <li ng-show="user.isAutenticated"><a href="#/logout">Log Out</a></li>
                     </ul>
                 </div>
             </div>
@@ -46,16 +45,13 @@
     </div>
 
     <!-- 3rd party libraries -->
-   
-    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.6/angular.min.js"></script>
-    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.6/angular-route.min.js"></script>
-    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.6/angular-resource.min.js"></script>
-    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.6/angular-animate.min.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/0.9.0/ui-bootstrap.min.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/0.9.0/ui-bootstrap-tpls.min.js"></script>
+    <script src="scripts/angular.min.js"></script>
+    <script src="scripts/angular-route.min.js"></script>
+    <script src="scripts/angular-resource.min.js"></script>
+    <script src="scripts/angular-animate.min.js"></script>
+    <script src="scripts/ui-bootstrap-tpls-0.10.0.min.js"></script>
     <script src="scripts/toaster.js"></script>
     <script src="scripts/loading-bar.min.js"></script>
-
 
     <!-- Load app main script -->
     <script src="app/app.js"></script>
