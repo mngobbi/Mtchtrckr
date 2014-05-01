@@ -47,6 +47,21 @@ app.config(function ($stateProvider, $locationProvider) {
     //Data
     .state('complejos', {
         templateUrl: 'app/views/complejos.html',
-        controller: 'ComplejosController'
+        controller: 'ComplejosController',
+        resolve: {
+            user: 'UserService',
+            authenticationRequired: function (user) {
+                user.isAuthenticated();
+            }
+        }
     })
 });
+
+app.run(function ($rootScope, $state, UserService) {
+    $rootScope.$on('$stateChangeError', function (event, toState, toParams, fromState, fromParams, error) {
+        if (error.name == 'AuthenticationRequired') {
+            UserService.setNextState(toState.name, 'You must login to access this page');
+            $state.go('login', {}, { reload: true });
+        }
+    })
+})
