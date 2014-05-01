@@ -1,6 +1,10 @@
 ﻿'use strict';
 
-var app = angular.module('MatchTrakrApp', ['ui.router', 'ngResource', 'ui.bootstrap', 'toaster', 'chieffancypants.loadingBar']);
+var app = angular.module('MatchTrakrApp', ['ui.router', 'ngResource'
+    , 'ngCookies'
+    , 'ui.bootstrap'
+    , 'toaster'
+    , 'chieffancypants.loadingBar']);
 
 app.config(function ($stateProvider, $locationProvider) {
     $locationProvider.html5Mode(true);
@@ -58,6 +62,11 @@ app.config(function ($stateProvider, $locationProvider) {
 });
 
 app.run(function ($rootScope, $state, UserService) {
+    try {
+        UserService.isAuthenticated();
+    } catch (e) {
+        //Do nothing 
+    }
     $rootScope.$on('$stateChangeError', function (event, toState, toParams, fromState, fromParams, error) {
         if (error.name == 'AuthenticationRequired') {
             UserService.setNextState(toState.name, 'You must login to access this page');

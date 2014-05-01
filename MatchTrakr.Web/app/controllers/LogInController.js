@@ -4,6 +4,7 @@ app.controller('LogInController', [ '$scope', '$state', 'UserService', function 
 
     $scope.username = '';
     $scope.password = '';
+    $scope.persist = false;
     $scope.errors = new Array();
     $scope.buttonEnabled = true;
     var nextState = null;
@@ -46,6 +47,6 @@ app.controller('LogInController', [ '$scope', '$state', 'UserService', function 
 
     $scope.login = function () {
         $scope.buttonEnabled = false;
-        UserService.authenticate($scope.username, $scope.password, onSuccessfulLogin, onFailedLogin);
+        UserService.authenticate($scope.username, $scope.password, onSuccessfulLogin, onFailedLogin, $scope.persist);
     };
 }]);

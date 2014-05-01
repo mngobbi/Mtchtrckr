@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-app.service('UserService', ['$http', function UserService($http) {
+app.service('UserService', ['$http', '$cookieStore', function UserService($http, $cookieStore) {
       var userData = {
           isAuthenticated: false,
           username: '',
@@ -24,6 +24,17 @@ app.service('UserService', ['$http', function UserService($http) {
           userData.expirationDate = null;
       };
 
+      function AuthenticationExpiredException(message) {
+          this.name = 'AuthenticationExpired';
+          this.message = message;
+      };
+
+      function AuthenticationRetrievalException(message) {
+          //Cookie does not exist
+          this.name = 'AuthenticationRetrieval';
+          this.message = message;
+      };
+
       function NoAuthenticationException(message) {
           this.name = 'AuthenticationRequired';
           this.message = message;
@@ -32,6 +43,27 @@ app.service('UserService', ['$http', function UserService($http) {
       function NextStateUndefinedException(message) {
           this.name = 'NextStateUndefined';
           this.message = message;
+      };
+
+      function saveData() {
+          removeData();
+          $cookieStore.put('auth_data', userData);
+      };
+
+      function removeData() {
+          $cookieStore.remove('auth_data');
+      };
+
+      function retrieveSavedData() {
+          var savedData = $cookieStore.get('auth_data');
+          if (typeof savedData === 'undefined') {
+              throw new AuthenticationRetrievalException('No authentication data exists');
+          } else if (isAuthenticationExpired(savedData.expirationDate)) {
+              throw new AuthenticationExpiredException('Authentication token has already expired');
+          } else {
+              userData = savedData;
+              setHttpAuthHeader();
+          }
       };
 
       function isAuthenticationExpired(expirationDate) {
@@ -46,7 +78,12 @@ app.service('UserService', ['$http', function UserService($http) {
           if (userData.isAuthenticated && !isAuthenticationExpired(userData.expirationDate)) {
               return true;
           } else {
-              throw new NoAuthenticationException('Authentication not found');
+              try {
+                  retrieveSavedData();
+              } catch (e) {
+                  throw new NoAuthenticationException('Authentication not found');
+              }
+              return true;
           }
       };
 
@@ -72,7 +109,8 @@ app.service('UserService', ['$http', function UserService($http) {
           return userData;
       };
 
-      this.authenticate = function (username, password, successCallback, errorCallback) {
+      this.authenticate = function (username, password, successCallback, errorCallback, persistData) {
+          this.removeAuthentication();
           var config = {
               method: 'POST',
               url: '/token',
@@ -89,6 +127,9 @@ app.service('UserService', ['$http', function UserService($http) {
                 userData.bearerToken = data.access_token;
                 userData.expirationDate = new Date(data['.expires']);
                 setHttpAuthHeader();
+                if (persistData === true) {
+                    saveData();
+                }
                 if (typeof successCallback === 'function') {
                     successCallback();
                 }
@@ -105,6 +146,7 @@ app.service('UserService', ['$http', function UserService($http) {
       };
 
       this.removeAuthentication = function () {
+          removeData();
           clearUserData();
           $http.defaults.headers.common.Authorization = null;
       };
