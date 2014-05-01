@@ -1,1 +1,1 @@
-﻿app.controller('Page', function() {});
+﻿app.controller('PageController', function() {});

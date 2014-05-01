@@ -1,40 +1,42 @@
 ﻿var app = angular.module('MatchTrakrApp', ['ngRoute', 'ngResource', 'ui.bootstrap', 'toaster', 'chieffancypants.loadingBar']);
 
-app.config(function ($routeProvider) {
+app.config(function ($routeProvider, $locationProvider) {
     $routeProvider.when('/', {
-        templateUrl: 'home.html',
+        templateUrl: 'app/views/home.html',
         controller: 'PageController'
     });
 
     $routeProvider.when('/profile', {
-        templateUrl: 'profile.html',
+        templateUrl: 'app/views/profile.html',
         controller: 'ProfileController',
         secured: true
     });
 
     $routeProvider.when('/password', {
-        templateUrl: 'password.html',
+        templateUrl: 'app/views/password.html',
         controller: 'PasswordController'
     });
 
     $routeProvider.when('/login', {
-        templateUrl: 'login.html',
+        templateUrl: 'app/views/login.html',
         controller: 'LogInController'
     });
 
     $routeProvider.when('/signup', {
-        templateUrl: 'signup.html',
+        templateUrl: 'app/views/signup.html',
         controller: 'SignUpController'
     });
 
     $routeProvider.when('/404', {
-        templateUrl: 'notfound.html',
+        templateUrl: 'app/views/notfound.html',
         controller: 'PageController'
     });
 
     $routeProvider.otherwise({
-        redirectTo: '/404'
+        redirectTo: 'app/views/404'
     });
 
+    // use the HTML5 History API
+    $locationProvider.html5Mode(true);
 
 });

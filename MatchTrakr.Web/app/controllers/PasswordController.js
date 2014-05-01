@@ -1,4 +1,4 @@
-﻿app.controller('ForgotPassword', function ($scope
+﻿app.controller('PasswordController', function ($scope
         , $location
         , ServerAPI
         , events) {

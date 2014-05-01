@@ -1,22 +1,25 @@
-﻿app.controller('SignIn', function ($scope
-        , $location
-        , ServerAPI
-        , Validation
-        , events) {
+﻿'use strict';
 
-    $scope.session = new ServerAPI.Session;
+app.controller('LogInController', function ($scope, $location, UserService) {
 
-    $scope.submit = function() {
-        $scope.modelErrors = void(0);
-        $scope.session
-            .$save(function() {
-                events.trigger('signedIn');
-                $location.path('/');
-            }, function(response) {
-                var error = Validation.hasModelErrors(response) ?
-                    'Invalid credentials.' :
-                    'An unexpected error has occurred while signing in.';
-                $scope.modelErrors = [error];
-            });
+    $scope.username = '';
+    $scope.password = '';
+    $scope.errors = new Array();
+    $scope.buttonEnabled = true;
+
+    function onSuccessfulLogin () {
+        $location.path('/');
+    };
+
+    function onFailedLogin (error) {
+        if (typeof error === 'string' && $scope.errors.indexOf(error) === -1) {
+            $scope.errors.push(error);
+        }
+        $scope.buttonEnabled = true;
+    };
+
+    $scope.login = function () {
+        $scope.buttonEnabled = false;
+        UserService.authenticate($scope.username, $scope.password, onSuccessfulLogin, onFailedLogin);
     };
 });

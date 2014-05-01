@@ -1,4 +1,4 @@
-﻿app.controller('Profile', function ($scope
+﻿app.controller('ProfileController', function ($scope
         , $location
         , $dialog
         , ServerAPI

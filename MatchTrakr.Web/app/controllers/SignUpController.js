@@ -1,4 +1,4 @@
-﻿app.controller('SignUp', function ($scope
+﻿app.controller('SignUpController', function ($scope
         , $location
         , ServerAPI
         , Validation

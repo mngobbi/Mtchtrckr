@@ -12,6 +12,13 @@ app.service('UserService', ['$http', function UserService($http) {
           $http.defaults.headers.common.Authorization = 'Bearer ' + userData.bearerToken;
       }
 
+      function clearUserData() {
+          userData.isAuthenticated = false;
+          userData.username = '';
+          userData.bearerToken = '';
+          userData.expirationDate = null;
+      };
+
       this.getUserData = function () {
           return userData;
       };
@@ -46,5 +53,10 @@ app.service('UserService', ['$http', function UserService($http) {
                     }
                 }
             });
+      };
+
+      this.removeAuthentication = function () {
+          clearUserData();
+          $http.defaults.headers.common.Authorization = null;
       };
   }]);
