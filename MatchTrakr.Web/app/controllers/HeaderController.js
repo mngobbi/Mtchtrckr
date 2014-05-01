@@ -1,9 +1,5 @@
 ﻿'use strict';
 
-app.controller('HeaderController', function ($scope, $location, UserService) {
+app.controller('HeaderController', ['$scope', 'UserService', function ($scope, UserService) {
     $scope.user = UserService.getUserData();
-
-    $scope.removeAuth = function () {
-        UserService.removeAuthentication();
-    };
-});
+}]);

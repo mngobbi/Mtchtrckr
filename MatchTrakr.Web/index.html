@@ -20,24 +20,24 @@
                         <span class="glyphicon glyphicon-chevron-down"></span>
                     </button>
                     <div id="logo">
-                        <a href='#/'>
+                        <a ui-sref="home">
                             <h4>MT</h4>
                         </a>
                     </div>
                 </div>
                 <div class="navbar-collapse collapse" data-collapse="!navbarExpanded">
                     <ul class="nav navbar-nav navbar-right">
-                        <li ng-show="user.isAuthenticated"><a href="#/profile">Profile</a></li>
-                        <li ng-show="user.isAuthenticated"><a href="#/complejos">Complejos</a></li>
-                        <li ng-hide="user.isAuthenticated"><a href="#/login">Log In</a></li>
-                        <li ng-hide="user.isAuthenticated"><a href="#/signin">Sign In</a></li>
-                        <li ng-show="user.isAuthenticated"><a href="#" ng-click="removeAuth()">Log Out</a></li>
+                        <li ng-show="user.isAuthenticated"><a ui-sref="profile">Profile</a></li>
+                        <li ng-show="user.isAuthenticated"><a ui-sref="complejos">Complejos</a></li>
+                        <li ng-hide="user.isAuthenticated"><a ui-sref="login">Log In</a></li>
+                        <li ng-hide="user.isAuthenticated"><a ui-sref="signin">Sign In</a></li>
+                        <li ng-show="user.isAuthenticated"><a ui-sref="logout">Log Out</a></li>
                     </ul>
                 </div>
             </div>
         </header>
         <section id="body" class="container">
-            <div data-ng-view=""></div>
+            <div ui-view></div>
         </section>
         <hr />
         <footer class="container">
@@ -47,7 +47,8 @@
 
     <!-- 3rd party libraries -->
     <script src="scripts/angular.min.js"></script>
-    <script src="scripts/angular-route.min.js"></script>
+    <script src="scripts/angular-cookies.min.js"></script>
+    <script src="scripts/angular-ui-router.min.js"></script>
     <script src="scripts/angular-resource.min.js"></script>
     <script src="scripts/angular-animate.min.js"></script>
     <script src="scripts/ui-bootstrap-tpls-0.10.0.min.js"></script>
@@ -63,7 +64,7 @@
     <!-- Load controllers -->
     <script src="app/controllers/HeaderController.js"></script>
     <script src="app/controllers/LogInController.js"></script>
-    <script src="app/controllers/PageController.js"></script>
+    <script src="app/controllers/LogOutController.js"></script>
     <script src="app/controllers/ProfileController.js"></script>
     <script src="app/controllers/SignUpController.js"></script>
     <script src="app/controllers/PasswordController.js"></script>

@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-app.controller('LogInController', function ($scope, $location, UserService) {
+app.controller('LogInController', [ '$scope', '$state', 'UserService', function ($scope, $state, UserService) {
 
     $scope.username = '';
     $scope.password = '';
@@ -8,7 +8,7 @@ app.controller('LogInController', function ($scope, $location, UserService) {
     $scope.buttonEnabled = true;
 
     function onSuccessfulLogin () {
-        $location.path('/');
+        $state.go('home');
     };
 
     function onFailedLogin (error) {
@@ -22,4 +22,4 @@ app.controller('LogInController', function ($scope, $location, UserService) {
         $scope.buttonEnabled = false;
         UserService.authenticate($scope.username, $scope.password, onSuccessfulLogin, onFailedLogin);
     };
-});
+}]);

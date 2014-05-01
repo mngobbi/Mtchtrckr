@@ -1,49 +1,52 @@
-﻿var app = angular.module('MatchTrakrApp', ['ngRoute', 'ngResource', 'ui.bootstrap', 'toaster', 'chieffancypants.loadingBar']);
+﻿'use strict';
 
-app.config(function ($routeProvider, $locationProvider) {
-    $routeProvider.when('/', {
-        templateUrl: 'app/views/home.html',
-        controller: 'PageController'
-    });
+var app = angular.module('MatchTrakrApp', ['ui.router', 'ngResource', 'ui.bootstrap', 'toaster', 'chieffancypants.loadingBar']);
 
-    $routeProvider.when('/profile', {
+app.config(function ($stateProvider, $locationProvider) {
+    $locationProvider.html5Mode(true);
+
+    $stateProvider
+
+    .state('home', {
+        url: '/',
+        templateUrl: 'app/views/home.html'
+    })
+
+    .state('profile', {
+        url: '/profile',
         templateUrl: 'app/views/profile.html',
         controller: 'ProfileController',
         secured: true
-    });
+    })
 
-    $routeProvider.when('/password', {
+    .state('password', {
         templateUrl: 'app/views/password.html',
         controller: 'PasswordController'
-    });
+    })
 
-    $routeProvider.when('/login', {
+    .state('login', {
         templateUrl: 'app/views/login.html',
         controller: 'LogInController'
-    });
+    })
 
-    $routeProvider.when('/signup', {
+    .state('logout', {
+        controller: 'LogOutController'
+    })
+
+    .state('signup', {
         templateUrl: 'app/views/signup.html',
         controller: 'SignUpController'
-    });
+    })
 
-    $routeProvider.when('/404', {
-        templateUrl: 'app/views/notfound.html',
-        controller: 'PageController'
-    });
-
-    $routeProvider.otherwise({
-        redirectTo: 'app/views/404'
-    });
+    .state('404', {
+        url: '/404',
+        templateUrl: 'app/views/notfound.html'
+    })
 
 
     //Data
-    $routeProvider.when('/complejos', {
+    .state('complejos', {
         templateUrl: 'app/views/complejos.html',
         controller: 'ComplejosController'
-    });
-
-    // use the HTML5 History API
-    //$locationProvider.html5Mode(true);
-
+    })
 });

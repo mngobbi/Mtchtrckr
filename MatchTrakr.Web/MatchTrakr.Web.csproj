@@ -167,9 +167,9 @@
   <ItemGroup>
     <Content Include="app\app.js" />
     <Content Include="app\controllers\ComplejosController.js" />
+    <Content Include="app\controllers\LogOutController.js" />
     <Content Include="app\controllers\PasswordController.js" />
     <Content Include="app\controllers\HeaderController.js" />
-    <Content Include="app\controllers\PageController.js" />
     <Content Include="app\controllers\ProfileController.js" />
     <Content Include="app\controllers\LogInController.js" />
     <Content Include="app\controllers\SignUpController.js" />
@@ -259,6 +259,7 @@
     <Content Include="scripts\angular-cookies.min.js" />
     <Content Include="scripts\angular-resource.min.js" />
     <Content Include="scripts\angular-route.min.js" />
+    <Content Include="scripts\angular-ui-router.min.js" />
     <Content Include="scripts\angular.js" />
     <Content Include="scripts\angular.min.js" />
     <None Include="scripts\jquery-2.1.0.intellisense.js" />
