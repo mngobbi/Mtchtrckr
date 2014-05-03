@@ -58,4 +58,21 @@ namespace MatchTrakr.Web.DTO
 
         }
     }
+
+    public class GrupoDTO
+    {
+        public int Id { get; set; }
+        public string Nombre { get; set; }
+
+        public GrupoDTO()
+        {
+
+        }
+
+        public GrupoDTO(Grupo g)
+        {
+            this.Id = g.Id;
+            this.Nombre = g.Nombre;
+        }
+    }
 }
