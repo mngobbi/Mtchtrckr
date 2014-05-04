@@ -15,6 +15,7 @@ namespace MatchTrakr.Data.Entities
         {
             this.UsuariosInfo = new HashSet<UsuarioPartido>();
             this.Invitaciones = new HashSet<Invitacion>();
+            this.FechaAlta = DateTime.Now;
         }
 
         public int Id { get; set; }

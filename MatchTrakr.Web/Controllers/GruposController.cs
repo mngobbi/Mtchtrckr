@@ -1,42 +1,38 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Data.Entity;
+﻿using System.Collections.Generic;
 using System.Data.Entity.Infrastructure;
-using System.Linq;
 using System.Net;
-using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Description;
 using MatchTrakr.Data;
+using MatchTrakr.Data.Services;
 using MatchTrakr.Data.Entities;
 using MatchTrakr.Web.DTO;
 
 namespace MatchTrakr.Web.Controllers
 {
-    [RoutePrefix("api/")]
+    [RoutePrefix("api")]
     public class GruposController : ApiController
     {
-        private readonly IMatchTrakrRepository _repo;
+        private readonly GruposRepository _repo;
 
-        public GruposController(IMatchTrakrRepository repo)
+        public GruposController()
         {
-            _repo = repo;
+            _repo = new GruposRepository(new MatchTrakrContext());
         }
 
         // GET: api/Grupos
         [Route("grupos")]
         public IEnumerable<GrupoDTO> GetGrupos()
         {
-            return _repo.AllGrupos().AsDTO();
+            return _repo.GetAll().AsDTO();
         }
 
         // GET: api/Grupos/5
-        [Route("grupos/{id}")]
-        [ResponseType(typeof(Grupo))]
+        [Route("grupos/{id}", Name="GetGrupoById")]
+        [ResponseType(typeof(GrupoDTO))]
         public IHttpActionResult GetGrupo(int id)
         {
-            Grupo grupo = _repo.FindGrupo(id);
+            Grupo grupo = _repo.Find(e => e.Id == id);
             if (grupo == null)
             {
                 return NotFound();
@@ -48,33 +44,36 @@ namespace MatchTrakr.Web.Controllers
         // PUT: api/Grupos/5
         [Route("grupos/{id}")]
         [ResponseType(typeof(void))]
-        public IHttpActionResult PutGrupo(int id, GrupoDTO grupo)
+        public IHttpActionResult PutGrupo(int id, GrupoDTO grupoDTO)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            if (id != grupo.Id)
+            if (id != grupoDTO.Id)
             {
                 return BadRequest();
             }
 
-            try
+            Grupo g = _repo.Find(e => e.Id == id);
+
+            if (g != null)
             {
-                _repo.UpdateGrupo(grupo.Id, grupo.Nombre);
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!_repo.GrupoExists(id))
+                try
                 {
-                    return NotFound();
+                    GrupoDTOtoGrupo(ref g, grupoDTO);
+                    _repo.Update(g, id);
                 }
-                else
+                catch (DbUpdateConcurrencyException)
                 {
                     throw;
                 }
             }
+            else
+            {
+                return NotFound();
+            }     
 
             return StatusCode(HttpStatusCode.NoContent);
         }
@@ -82,16 +81,21 @@ namespace MatchTrakr.Web.Controllers
         // POST: api/Grupos
         [Route("grupos")]
         [ResponseType(typeof(GrupoDTO))]
-        public IHttpActionResult PostGrupo(GrupoDTO grupo)
+        public IHttpActionResult PostGrupo(GrupoDTO grupoDTO)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            _repo.AddGrupo(grupo.Id, grupo.Nombre);
+            Grupo g = new Grupo();
+            GrupoDTOtoGrupo(ref g, grupoDTO);
 
-            return CreatedAtRoute("DefaultApi", new { id = grupo.Id }, grupo);
+            _repo.Add(g);
+
+            grupoDTO.Id = g.Id;
+
+            return CreatedAtRoute("GetGrupoByID", new { id = grupoDTO.Id }, grupoDTO);
         }
 
         // DELETE: api/Grupos/5
@@ -99,15 +103,20 @@ namespace MatchTrakr.Web.Controllers
         [ResponseType(typeof(GrupoDTO))]
         public IHttpActionResult DeleteGrupo(int id)
         {
-            Grupo grupo = _repo.FindGrupo(id);
+            Grupo grupo = _repo.Find(e => e.Id == id);
             if (grupo == null)
             {
                 return NotFound();
             }
 
-            _repo.RemoveGrupo(grupo);
+            _repo.Delete(grupo);
 
             return Ok(grupo.AsDTO());
+        }
+
+        private void GrupoDTOtoGrupo(ref Grupo g, GrupoDTO grupoDTO)
+        {
+            g.Nombre = grupoDTO.Nombre;
         }
     }
 }

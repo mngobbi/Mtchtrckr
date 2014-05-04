@@ -14,6 +14,7 @@ namespace MatchTrakr.Data.Entities
         public Complejo()
         {
             this.Canchas = new HashSet<Cancha>();
+            this.FechaAlta = DateTime.Now;
         }
 
         public int Id { get; set; }

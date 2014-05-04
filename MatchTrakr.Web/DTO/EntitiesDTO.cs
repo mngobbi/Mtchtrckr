@@ -75,4 +75,62 @@ namespace MatchTrakr.Web.DTO
             this.Nombre = g.Nombre;
         }
     }
+
+    public class PartidoDTO
+    {
+        public int Id { get; set; }
+        public int GrupoId { get; set; }
+        public int ReservaId { get; set; }
+        public DateTime Fecha { get; set; }
+        public int? EquipoARdo { get; set; }
+        public int? EquipoBRdo { get; set; }
+        public JugadorDTO[] Jugadores;
+
+        public PartidoDTO()
+        {
+
+        }
+
+        public PartidoDTO(Partido p)
+        {
+            this.Id = p.Id;
+            this.GrupoId = p.GrupoId;
+            this.ReservaId = p.ReservaId;
+            this.Fecha = p.Fecha;
+            this.EquipoARdo = p.EquipoARdo;
+            this.EquipoBRdo = p.EquipoBRdo;
+
+            if (p.UsuariosInfo.Count > 0)
+            {
+                List<JugadorDTO> jugadores = new List<JugadorDTO>();
+                foreach (var e in p.UsuariosInfo)
+                {
+                    jugadores.Add(new JugadorDTO(e));
+                }
+                this.Jugadores = jugadores.ToArray();
+            }
+            
+
+
+        }
+    }
+
+    public class JugadorDTO
+    {
+        public string Id { get; set; }
+        public string Nombre { get; set; }
+        public bool? EquipoA { get; set; }
+
+        public JugadorDTO()
+        {
+
+        }
+
+        public JugadorDTO(UsuarioPartido up)
+        {
+            this.Id = up.UsuarioId;
+            this.Nombre = up.Usuario.UserName;
+            this.EquipoA = up.EquipoA;
+        }
+    }
 }

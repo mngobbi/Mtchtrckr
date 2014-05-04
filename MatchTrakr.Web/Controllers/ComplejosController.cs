@@ -1,137 +1,139 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Data.Entity;
+﻿using System.Collections.Generic;
 using System.Data.Entity.Infrastructure;
-using System.Linq;
 using System.Net;
-using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Description;
 using MatchTrakr.Data;
+using MatchTrakr.Data.Services;
 using MatchTrakr.Data.Entities;
 using MatchTrakr.Web.DTO;
 
 namespace MatchTrakr.Web.Controllers
 {
-    [Authorize]
+    [RoutePrefix("api")]
     public class ComplejosController : ApiController
     {
-        private MatchTrakrContext db = new MatchTrakrContext();
+        private readonly ComplejosRepository _repo;
+
+        public ComplejosController()
+        {
+            _repo = new ComplejosRepository(new MatchTrakrContext());
+        }
 
         // GET: api/Complejos
-        [ResponseType(typeof(ComplejoDTO))]
-        public IHttpActionResult GetComplejos()
+        [Route("complejos")]
+        public IEnumerable<ComplejoDTO> GetComplejos()
         {
-            Complejo[] complejos = db.Complejos.ToArray();
-
-            if (complejos.Length > 0) 
-            {
-                List<ComplejoDTO> complejosDTO = new List<ComplejoDTO>();
-                foreach (Complejo c in complejos)
-                {
-                    complejosDTO.Add(new ComplejoDTO(c));
-                }
-                return Ok(complejosDTO.AsEnumerable());
-            }
-            else
-            {
-                return Content(HttpStatusCode.NoContent,"No se han encontrado complejos.");
-            }
-           
+            return _repo.GetAll().AsDTO();
         }
 
         // GET: api/Complejos/5
+        [Route("complejos/{id}", Name = "GetComplejoById")]
         [ResponseType(typeof(ComplejoDTO))]
         public IHttpActionResult GetComplejo(int id)
         {
-            Complejo complejo = db.Complejos.Find(id);
+            Complejo complejo = _repo.Find(e => e.Id == id);
             if (complejo == null)
             {
                 return NotFound();
             }
 
-            return Ok(new ComplejoDTO(complejo));
+            return Ok(complejo.AsDTO());
         }
 
-        //// PUT: api/Complejos/5
-        //[ResponseType(typeof(void))]
-        //public IHttpActionResult PutComplejo(int id, Complejo complejo)
-        //{
-        //    if (!ModelState.IsValid)
-        //    {
-        //        return BadRequest(ModelState);
-        //    }
+        // PUT: api/Complejos/5
+        [Route("complejos/{id}")]
+        [ResponseType(typeof(void))]
+        public IHttpActionResult PutComplejo(int id, ComplejoDTO complejoDTO)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
 
-        //    if (id != complejo.Id)
-        //    {
-        //        return BadRequest();
-        //    }
+            if (id != complejoDTO.Id)
+            {
+                return BadRequest();
+            }
 
-        //    db.Entry(complejo).State = EntityState.Modified;
+            Complejo comp = _repo.Find(e => e.Id == id);
 
-        //    try
-        //    {
-        //        db.SaveChanges();
-        //    }
-        //    catch (DbUpdateConcurrencyException)
-        //    {
-        //        if (!ComplejoExists(id))
-        //        {
-        //            return NotFound();
-        //        }
-        //        else
-        //        {
-        //            throw;
-        //        }
-        //    }
+            if (comp != null)
+            {
+                try
+                {
+                    ComplejoDTOtoComplejo(ref comp, complejoDTO);
+                    _repo.Update(comp, id);
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    throw;
+                }
+            }
+            else
+            {
+                return NotFound();
+            }
 
-        //    return StatusCode(HttpStatusCode.NoContent);
-        //}
+            return StatusCode(HttpStatusCode.NoContent);
+        }
 
-        //// POST: api/Complejos
-        //[ResponseType(typeof(Complejo))]
-        //public IHttpActionResult PostComplejo(Complejo complejo)
-        //{
-        //    if (!ModelState.IsValid)
-        //    {
-        //        return BadRequest(ModelState);
-        //    }
+        // POST: api/Complejos
+        [Route("complejos")]
+        [ResponseType(typeof(ComplejoDTO))]
+        public IHttpActionResult PostComplejo(ComplejoDTO complejoDTO)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
 
-        //    db.Complejos.Add(complejo);
-        //    db.SaveChanges();
+            Complejo comp = new Complejo();
+            ComplejoDTOtoComplejo(ref comp, complejoDTO);
 
-        //    return CreatedAtRoute("DefaultApi", new { id = complejo.Id }, complejo);
-        //}
+            _repo.Add(comp);
 
-        //// DELETE: api/Complejos/5
-        //[ResponseType(typeof(Complejo))]
-        //public IHttpActionResult DeleteComplejo(int id)
-        //{
-        //    Complejo complejo = db.Complejos.Find(id);
-        //    if (complejo == null)
-        //    {
-        //        return NotFound();
-        //    }
+            complejoDTO.Id = comp.Id;
 
-        //    db.Complejos.Remove(complejo);
-        //    db.SaveChanges();
+            return CreatedAtRoute("GetComplejoByID", new { id = complejoDTO.Id }, complejoDTO);
+        }
 
-        //    return Ok(complejo);
-        //}
+        // DELETE: api/Complejos/5
+        [Route("complejos/{id}")]
+        [ResponseType(typeof(ComplejoDTO))]
+        public IHttpActionResult DeleteComplejo(int id)
+        {
+            Complejo complejo = _repo.Find(e => e.Id == id);
+            if (complejo == null)
+            {
+                return NotFound();
+            }
 
-        //protected override void Dispose(bool disposing)
-        //{
-        //    if (disposing)
-        //    {
-        //        db.Dispose();
-        //    }
-        //    base.Dispose(disposing);
-        //}
+            _repo.Delete(complejo);
 
-        //private bool ComplejoExists(int id)
-        //{
-        //    return db.Complejos.Count(e => e.Id == id) > 0;
-        //}
+            return Ok(complejo.AsDTO());
+        }
+
+        private void ComplejoDTOtoComplejo(ref Complejo comp, ComplejoDTO complejoDTO)
+        {
+            comp.Nombre = complejoDTO.Nombre;
+            comp.Descripcion = complejoDTO.Descripcion;
+            comp.Direccion = complejoDTO.Direccion;
+            comp.Telefono = complejoDTO.Telefono;
+            comp.Canchas.Clear();
+            if (complejoDTO.Canchas.Length > 0)
+            {
+                List<Cancha> canchas = new List<Cancha>();
+                foreach (var cDTO in complejoDTO.Canchas)
+                {
+                    Cancha c = new Cancha();
+                    c.Complejo = comp;
+                    c.Nombre = cDTO.Nombre;
+                    c.Precio = cDTO.Precio;
+                    canchas.Add(c);
+                }
+                comp.Canchas = canchas.ToArray();
+            }
+        }
     }
 }

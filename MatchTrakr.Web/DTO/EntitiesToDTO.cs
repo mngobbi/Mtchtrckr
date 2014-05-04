@@ -22,6 +22,36 @@ namespace MatchTrakr.Web.DTO
             }
             return grupos.AsEnumerable();
         }
+
+        public static PartidoDTO AsDTO(this Partido p)
+        {
+            return new PartidoDTO(p);
+        }
+
+        public static IEnumerable<PartidoDTO> AsDTO(this IEnumerable<Partido> p)
+        {
+            List<PartidoDTO> partidos = new List<PartidoDTO>();
+            foreach (var e in p)
+            {
+                partidos.Add(new PartidoDTO(e));
+            }
+            return partidos.AsEnumerable();
+        }
+
+        public static ComplejoDTO AsDTO(this Complejo c)
+        {
+            return new ComplejoDTO(c);
+        }
+
+        public static IEnumerable<ComplejoDTO> AsDTO(this IEnumerable<Complejo> c)
+        {
+            List<ComplejoDTO> complejos = new List<ComplejoDTO>();
+            foreach (var e in c)
+            {
+                complejos.Add(new ComplejoDTO(e));
+            }
+            return complejos.AsEnumerable();
+        }
     }
         
 }
